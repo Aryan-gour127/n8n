@@ -1,0 +1,57 @@
+{
+  "name": "06 - AI Chatbot with Memory Starter",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true
+      },
+      "id": "51164075417",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are a helpful assistant. Answer clearly and say when you are uncertain."
+      },
+      "id": "108775600698",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1,
+      "position": [
+        420,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "sessionIdType": "fromInput",
+        "contextWindowLength": 8
+      },
+      "id": "982548984952",
+      "name": "Simple Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1,
+      "position": [
+        420,
+        240
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "starter-template",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
