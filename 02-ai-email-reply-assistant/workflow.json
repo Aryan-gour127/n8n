@@ -1,0 +1,83 @@
+{
+  "name": "02 - AI Email Reply Assistant",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "30778071972",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "email",
+              "value": "Paste email text here",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "382904686703",
+      "name": "Email Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Write a concise, professional reply to this email. Do not invent facts.\n\nEmail:\n{{$json.email}}"
+      },
+      "id": "797778616848",
+      "name": "AI Draft Reply",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1,
+      "position": [
+        500,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "draft_reply",
+              "value": "={{$json.text}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "174323819886",
+      "name": "Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        780,
+        0
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "starter-template",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
