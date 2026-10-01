@@ -1,0 +1,88 @@
+{
+  "name": "01 - AI PDF Summarizer",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "30778071972",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "filePath": "YOUR_PDF_PATH"
+      },
+      "id": "141863950839",
+      "name": "Get PDF",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "pdf"
+      },
+      "id": "892033889739",
+      "name": "Extract Text",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Summarize the following PDF clearly. Return: TL;DR, key points, important terms, and action items.\n\n{{$json.text}}"
+      },
+      "id": "343503263591",
+      "name": "AI Summary",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1,
+      "position": [
+        680,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "summary",
+              "value": "={{$json.text}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "174323819886",
+      "name": "Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        920,
+        0
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "starter-template",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
