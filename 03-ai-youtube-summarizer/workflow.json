@@ -1,0 +1,85 @@
+{
+  "name": "03 - AI YouTube Summarizer",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "30778071972",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "url",
+              "value": "https://www.youtube.com/watch?v=YOUR_VIDEO_ID",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "19816125105",
+      "name": "YouTube URL",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://YOUR_TRANSCRIPT_API/transcript",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "={{$json.url}}"
+            }
+          ]
+        }
+      },
+      "id": "914750279233",
+      "name": "Get Transcript",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        460,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Summarize this YouTube transcript into: overview, 5 key lessons, important examples, and a 1-paragraph takeaway.\n\n{{$json.transcript}}"
+      },
+      "id": "343503263591",
+      "name": "AI Summary",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1,
+      "position": [
+        720,
+        0
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "starter-template",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
